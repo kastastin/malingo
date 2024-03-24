@@ -27,7 +27,7 @@ export default function HomePage() {
         </h1>
 
         {/* Auth */}
-        <div>
+        <div className="flex max-w-[330px] flex-col items-center gap-y-3 w-full">
           <ClerkLoading>
             <Loader className="size-5 animate-spin text-muted-foreground" />
           </ClerkLoading>
