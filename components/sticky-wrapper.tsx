@@ -4,9 +4,8 @@ type Props = {
 
 export function StickyWrapper({ children }: Props) {
   return (
-    // Check lated: add 'self-end'
-    <div className="sticky bottom-6 hidden w-[368px] lg:block"> 
-      <div className="min-h-[calc(100vh - 48px)] sticky top-6 flex flex-col gap-y-4">
+    <div className="self-endw-[368px] sticky bottom-6 hidden lg:block">
+      <div className="sticky top-6 flex min-h-[calc(100vh-48px)] flex-col gap-y-4">
         {children}
       </div>
     </div>
