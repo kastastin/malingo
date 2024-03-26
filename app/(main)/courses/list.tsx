@@ -10,8 +10,8 @@ import { upsertUserProgress } from "@/actions/user-progress";
 import { Card } from "./card";
 
 type Props = {
-  courses: (typeof courses.$inferInsert)[];
-  activeCourseId?: typeof userProgress.$inferInsert.activeCourseId;
+  courses: (typeof courses.$inferSelect)[];
+  activeCourseId?: typeof userProgress.$inferSelect.activeCourseId;
 };
 
 export function List({ courses, activeCourseId }: Props) {
@@ -35,7 +35,7 @@ export function List({ courses, activeCourseId }: Props) {
       {courses.map((course) => (
         <Card
           key={course.id}
-          id={course.id || 1}
+          id={course.id}
           title={course.title}
           imageSrc={course.imageSrc}
           active={course.id === activeCourseId}
