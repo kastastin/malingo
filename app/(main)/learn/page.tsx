@@ -4,6 +4,7 @@ import { getUserProgress, getUnits } from "@/db/queries";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { Header } from "./header";
+import { Unit } from "./unit";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
 
@@ -28,7 +29,15 @@ export default async function LearnPage() {
 
         {units.map((unit) => (
           <div key={unit.id} className="mb-10">
-            {JSON.stringify(unit)}
+            <Unit
+              id={unit.id}
+              title={unit.title}
+              description={unit.description}
+              lessons={unit.lessons}
+              activeLesson={undefined}
+              activeLessonPercentage={0}
+              order={unit.order}
+            />
           </div>
         ))}
       </FeedWrapper>

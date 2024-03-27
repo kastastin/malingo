@@ -15,6 +15,9 @@ const buttonVariants = cva(
         ghost:
           "border-0 border-transparent bg-transparent text-slate-500 hover:bg-slate-100",
 
+        locked:
+          "border-b-4 border-neutral-400 bg-neutral-200 text-primary-foreground hover:bg-neutral-200/90 active:border-b-0",
+
         primary:
           "bg-sky-400 border-b-4 border-sky-500 text-primary-foreground hover:bg-sky-400/90 active:border-b-0",
         primaryOutline: "bg-white text-sky-500 hover:bg-slate-100",
