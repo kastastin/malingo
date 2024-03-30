@@ -51,6 +51,37 @@ export function Quiz({
     setSelectedOption(id);
   }
 
+  function onNext() {
+    setActiveIndex((current) => current + 1);
+  }
+
+  function onContinue() {
+    if (!selectedOption) return;
+
+    if (status === "wrong") {
+      setStatus("none");
+      setSelectedOption(undefined);
+      return;
+    }
+
+    if (status === "correct") {
+      onNext();
+      setStatus("none");
+      setSelectedOption(undefined);
+      return;
+    }
+
+    const correctOption = options.find((option) => option.correct);
+
+    if (!correctOption) return;
+
+    if (correctOption.id === selectedOption) {
+      // 
+    } else {
+      //
+    }
+  }
+
   const title =
     currentChallenge.type === "ASSIST"
       ? "Select the correct answer"
