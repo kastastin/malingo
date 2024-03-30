@@ -7,6 +7,7 @@ import { challenges, challengeOptions } from "@/db/schema";
 import { Header } from "./header";
 import { Challenge } from "./challenge";
 import { QuestionBubble } from "./question-bubble";
+import { Footer } from "./footer";
 
 type Props = {
   initialLessonId: number;
@@ -87,6 +88,8 @@ export function Quiz({
           </div>
         </div>
       </div>
+
+      <Footer status={status} disabled={!selectedOption} onCheck={() => {}} />
     </>
   );
 }
