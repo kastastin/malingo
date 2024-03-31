@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { useAudio, useWindowSize, useMount } from "react-use";
 import Confetti from "react-confetti";
 
-import { challenges, challengeOptions } from "@/db/schema";
+import { challenges, challengeOptions, userSubscription } from "@/db/schema";
 import { useHeartsModal } from "@/store/use-hearts-modal";
 import { usePracticeModal } from "@/store/use-practice-modal";
 
@@ -24,11 +24,15 @@ type Props = {
   initialLessonId: number;
   initialHearts: number;
   initialPercentage: number;
-  userSubscription: any; // TODO: Define the user subscription type
   initialLessonChallenges: (typeof challenges.$inferSelect & {
     completed: boolean;
     challengeOptions: (typeof challengeOptions.$inferSelect)[];
   })[];
+  userSubscription:
+    | (typeof userSubscription.$inferSelect & {
+        isActive: boolean;
+      })
+    | null;
 };
 
 export function Quiz({

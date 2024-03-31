@@ -7,6 +7,7 @@ import {
   getCourseProgress,
   getLessonPercentage,
   getUnits,
+  getUserSubscription,
 } from "@/db/queries";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
@@ -20,14 +21,21 @@ export default async function LearnPage() {
   const courseProgressPromise = getCourseProgress();
   const lessonPercentagePromise = getLessonPercentage();
   const unitsPromise = getUnits();
+  const userSubscriptionPromise = getUserSubscription();
 
-  const [userProgress, units, courseProgress, lessonPercentage] =
-    await Promise.all([
-      userProgressPromise,
-      unitsPromise,
-      courseProgressPromise,
-      lessonPercentagePromise,
-    ]);
+  const [
+    userProgress,
+    units,
+    courseProgress,
+    lessonPercentage,
+    userSubscription,
+  ] = await Promise.all([
+    userProgressPromise,
+    unitsPromise,
+    courseProgressPromise,
+    lessonPercentagePromise,
+    userSubscriptionPromise,
+  ]);
 
   // Redirect to courses page if user has no active course
   if (!userProgress || !userProgress.activeCourse) redirect("/courses");
@@ -66,7 +74,7 @@ export default async function LearnPage() {
           activeCourse={userProgress.activeCourse}
           hearts={userProgress.hearts}
           points={userProgress.points}
-          hasActiveSubscription={false}
+          hasActiveSubscription={!!userSubscription?.isActive}
         />
       </StickyWrapper>
     </div>
