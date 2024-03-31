@@ -4,10 +4,13 @@ import { useState, useTransition } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useAudio, useWindowSize } from "react-use";
+import { useAudio, useWindowSize, useMount } from "react-use";
 import Confetti from "react-confetti";
 
 import { challenges, challengeOptions } from "@/db/schema";
+import { useHeartsModal } from "@/store/use-hearts-modal";
+import { usePracticeModal } from "@/store/use-practice-modal";
+
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { reduceHearts } from "@/actions/user-progress";
 
@@ -35,6 +38,14 @@ export function Quiz({
   userSubscription,
   initialLessonChallenges,
 }: Props) {
+  const { open: openHeartsModal } = useHeartsModal();
+  const { open: openPracticeModal } = usePracticeModal();
+
+  // Open practice modal when the lesson has already completed
+  useMount(() => {
+    if (initialPercentage === 100) openPracticeModal();
+  });
+
   const router = useRouter();
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
@@ -48,8 +59,9 @@ export function Quiz({
 
   const [lessonId] = useState(initialLessonId);
   const [hearts, setHearts] = useState(initialHearts);
-  const [percentage, setPercentage] = useState(initialPercentage);
-
+  const [percentage, setPercentage] = useState(() => {
+    return initialPercentage === 100 ? 0 : initialPercentage;
+  });
   const [challenges] = useState(initialLessonChallenges);
   const [activeIndex, setActiveIndex] = useState(() => {
     const uncompletedIndex = challenges.findIndex(
@@ -100,8 +112,7 @@ export function Quiz({
         upsertChallengeProgress(currentChallenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
-              // openHeartsModal();
-              console.log("No hearts");
+              openHeartsModal();
               return;
             }
 
@@ -121,8 +132,7 @@ export function Quiz({
         reduceHearts(currentChallenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
-              // openHeartsModal();
-              console.log("No hearts");
+              openHeartsModal();
               return;
             }
 
