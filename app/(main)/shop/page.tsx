@@ -8,6 +8,7 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
 
 import { Items } from "./items";
+import { Quests } from "@/components/quests";
 
 export default async function ShopPage() {
   const userProgressPromise = getUserProgress();
@@ -52,6 +53,8 @@ export default async function ShopPage() {
           hearts={userProgress.hearts}
           hasActiveSubscription={isPro}
         />
+
+        <Quests points={userProgress.points} />
       </StickyWrapper>
     </div>
   );

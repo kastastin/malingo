@@ -12,6 +12,8 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Promo } from "@/components/promo";
+import { Quests } from "@/components/quests";
 
 export default async function LeaderboardPage() {
   const userProgressPromise = getUserProgress();
@@ -78,6 +80,9 @@ export default async function LeaderboardPage() {
           hearts={userProgress.hearts}
           hasActiveSubscription={isPro}
         />
+
+        {!isPro && <Promo />}
+        <Quests points={userProgress.points} />
       </StickyWrapper>
     </div>
   );

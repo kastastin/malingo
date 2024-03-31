@@ -8,6 +8,7 @@ import { FeedWrapper } from "@/components/feed-wrapper";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
 import { Progress } from "@/components/ui/progress";
+import { Promo } from "@/components/promo";
 
 export default async function QuestsPage() {
   const userProgressPromise = getUserProgress();
@@ -79,6 +80,8 @@ export default async function QuestsPage() {
           hearts={userProgress.hearts}
           hasActiveSubscription={isPro}
         />
+
+        {!isPro && <Promo />}
       </StickyWrapper>
     </div>
   );

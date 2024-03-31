@@ -15,6 +15,8 @@ import { Header } from "./header";
 import { Unit } from "./unit";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
+import { Promo } from "@/components/promo";
+import { Quests } from "@/components/quests";
 
 export default async function LearnPage() {
   const userProgressPromise = getUserProgress();
@@ -42,6 +44,8 @@ export default async function LearnPage() {
 
   // Redirect to courses page if user has no course progress
   if (!courseProgress) redirect("/courses");
+
+  const isPro = !!userSubscription?.isActive;
 
   return (
     <div className="flex gap-[48px] px-6">
@@ -74,8 +78,11 @@ export default async function LearnPage() {
           activeCourse={userProgress.activeCourse}
           hearts={userProgress.hearts}
           points={userProgress.points}
-          hasActiveSubscription={!!userSubscription?.isActive}
+          hasActiveSubscription={isPro}
         />
+
+        {!isPro && <Promo />}
+        <Quests points={userProgress.points} />
       </StickyWrapper>
     </div>
   );
